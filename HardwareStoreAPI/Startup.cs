@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace HardwareStoreAPI
 {
@@ -51,6 +52,7 @@ namespace HardwareStoreAPI
             services.AddTransient<IZoneDistributionCenterData, ZoneDistributionCenterData>();
 
             //Add Automapper
+            services.AddAutoMapper(typeof(Startup));
 
             //Add Identity Database
             services.AddDbContext<ApplicationDbContext>(options =>

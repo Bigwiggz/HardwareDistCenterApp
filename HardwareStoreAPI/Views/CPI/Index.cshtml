@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HardwareStoreAPI.DTOs.CPIIndexDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CPIIndexID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCPIDateEntry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPIIndexValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPIIndexID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCPIDateEntry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPIIndexValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActiveStatus)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
