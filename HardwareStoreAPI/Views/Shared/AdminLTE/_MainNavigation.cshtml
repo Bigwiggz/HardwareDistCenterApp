@@ -12,8 +12,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <img src="~/img/favicon-32x32.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Alpha Tech Inc.</span>
     </a>
 
     <!-- Sidebar -->
@@ -54,11 +54,22 @@
                     </a>
 
                     <ul class="nav nav-treeview">
-
+                        <li class="nav-item">
+                            <a asp-controller="Dashboard" asp-action="Index" class="nav-link @Url.MakeActiveClass("Dashboard","index")">
+                                <i class="fas fa-tachometer-alt nav-icon"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="Index" class="nav-link @Url.MakeActiveClass("home","index")">
                                 <i class="fas fa-home nav-icon"></i>
                                 <p>Home</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="CPI" asp-action="Index" class="nav-link @Url.MakeActiveClass("CPI","index")">
+                                <i class="fas fa-chart-line nav-icon"></i>
+                                <p>CPI</p>
                             </a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
@@ -70,6 +81,72 @@
                                 </a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a asp-controller="Personnel" asp-action="Index" class="nav-link @Url.MakeActiveClass("Personnel","index")">
+                                <i class="fas fa-users nav-icon"></i>
+                                <p>Personnel</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="SalesContacts" asp-action="Index" class="nav-link @Url.MakeActiveClass("SalesContacts","index")">
+                                <i class="fas fa-address-card nav-icon"></i>
+                                <p>Sales Contacts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Sales" asp-action="Index" class="nav-link @Url.MakeActiveClass("Sales","index")">
+                                <i class="fas fa-dollar-sign nav-icon"></i>
+                                <p>Sales</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="StoreLocations" asp-action="Index" class="nav-link @Url.MakeActiveClass("StoreLocations","index")">
+                                <i class="fas fa-store-alt nav-icon"></i>
+                                <p>Store Locations</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="DistributionCenters" asp-action="Index" class="nav-link @Url.MakeActiveClass("DistributionCenters","index")">
+                                <i class="fas fa-warehouse nav-icon"></i>
+                                <p>Distribution Centers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="ProductCatalog" asp-action="Index" class="nav-link @Url.MakeActiveClass("ProductCatalog","index")">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Product Catalog</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Invoices" asp-action="Index" class="nav-link @Url.MakeActiveClass("Invoices","index")">
+                                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                                <p>Invoices</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Receipts" asp-action="Index" class="nav-link @Url.MakeActiveClass("Receipts","index")">
+                                <i class="fas fa-receipt nav-icon"></i>
+                                <p>Receipts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Territories" asp-action="Index" class="nav-link @Url.MakeActiveClass("Territories","index")">
+                                <i class="fas fa-map-marked-alt nav-icon"></i>
+                                <p>Territories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Configuration" asp-action="Index" class="nav-link @Url.MakeActiveClass("Configuration","index")">
+                                <i class="fas fa-cogs nav-icon"></i>
+                                <p>Configuration/Settings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Help" asp-action="Index" class="nav-link @Url.MakeActiveClass("Help","index")">
+                                <i class="fas fa-question-circle nav-icon"></i>
+                                <p>Help?</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

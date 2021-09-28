@@ -7,6 +7,13 @@
 
 <h1>Index</h1>
 
+<!--Bar Chart-->
+<div class="ChartJS">
+    <canvas id="lineChart" width="1600" height="600">
+        <p>Sorry, The Chart could not load properly.</p>
+    </canvas>
+</div>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -29,26 +36,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPIIndexID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCPIDateEntry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPIIndexValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActiveStatus)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPIIndexID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCPIDateEntry)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPIIndexValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActiveStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        let getCPIChartData =@Json.Serialize(@Model);
+    </script>
+    <script src="~/lib/Chart.js/chart.min.js"></script>
+    <script src="~/js/Pages/CPI/CPIIndex.js"></script>
+}
