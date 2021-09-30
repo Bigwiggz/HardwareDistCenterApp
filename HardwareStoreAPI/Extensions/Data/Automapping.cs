@@ -15,6 +15,10 @@ namespace HardwareStoreAPI.Extensions.Data
             //CPI Index
             CreateMap<CPIIndex, CPIIndexDTO>();
             CreateMap<CPIIndexDTO, CPIIndex>();
+
+            //ICECATProduct Catalog
+            CreateMap<ICECATProductCatalog, ICECATProductCatalogDTO>();
+            CreateMap<ICECATProductCatalogDTO, ICECATProductCatalog>();
         }
     }
 }

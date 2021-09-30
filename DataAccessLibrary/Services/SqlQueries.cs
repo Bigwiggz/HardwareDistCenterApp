@@ -392,6 +392,19 @@ namespace DataAccessLibrary.Services
                 WHERE ""ICECATEProductCatalogID""=@ICECATEProductCatalogID;
                 "
             },
+            {"ICECATProductCatalogGetDistinctCatID",
+                @"
+                SELECT DISTINCT ""Catid""
+                FROM ""tblICECATProductCatalog"";
+                "
+            },
+            {"ICECATProductCatalogGetProductsbyCatID",
+                @"
+                SELECT*
+                FROM public.""tblICECATProductCatalog""
+                WHERE ""Catid""=@Catid;
+                "
+            },
             //Inventory Queries
             {"InventoryInsertAsync",
                 @"

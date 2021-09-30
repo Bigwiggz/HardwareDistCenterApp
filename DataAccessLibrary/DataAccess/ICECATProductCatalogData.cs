@@ -119,5 +119,21 @@ namespace DataAccessLibrary.DataAccess
             var result = await _sql.SaveData<long, dynamic>(sqlString, p);
             return result;
         }
+
+        public async Task<IEnumerable<string>> GetAllDistinctCategoryID()
+        {
+            string sqlString = _sqlQuery.sqlQueries["ICECATProductCatalogGetDistinctCatID"];
+            var result = await _sql.LoadData<string, dynamic>(sqlString, new { });
+            return result;
+           
+        }
+
+        public async Task<IEnumerable<ICECATProductCatalog>> GetAllProductsbyCatID(ICECATProductCatalog model)
+        {
+            string sqlString = _sqlQuery.sqlQueries["ICECATProductCatalogGetProductsbyCatID"];
+            var p = new { Catid = model.Catid};
+            var result = await _sql.LoadData<ICECATProductCatalog, dynamic>(sqlString, new { });
+            return result;
+        }
     }
 }

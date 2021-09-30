@@ -1,0 +1,14 @@
+﻿@model IEnumerable<int>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+
+
+<h1>Product Catalog</h1>
+
+    @foreach (var item in Model)
+    {
+        <p>@item</p>
+    }

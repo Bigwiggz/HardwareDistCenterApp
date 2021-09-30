@@ -11,5 +11,7 @@ namespace DataAccessLibrary.DataAccess
         Task<ICECATProductCatalog> GetByIdAsync(object Id);
         Task<long> InsertAsync(ICECATProductCatalog model);
         Task<long> UpdateByIdAsync(ICECATProductCatalog model);
+        Task<IEnumerable<string>> GetAllDistinctCategoryID();
+        Task<IEnumerable<ICECATProductCatalog>> GetAllProductsbyCatID(ICECATProductCatalog model);
     }
 }
