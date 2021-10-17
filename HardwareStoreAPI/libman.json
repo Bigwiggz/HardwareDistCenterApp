@@ -59,6 +59,10 @@
       "files": [
         "daterangepicker.min.js"
       ]
+    },
+    {
+      "library": "leaflet@1.7.1",
+      "destination": "wwwroot/lib/leaflet/"
     }
   ]
 }

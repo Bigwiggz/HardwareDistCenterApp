@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Internal;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.SpecialModels;
 using DataAccessLibrary.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -90,6 +91,14 @@ namespace DataAccessLibrary.DataAccess
             };
 
             var result = await _sql.SaveData<long, dynamic>(sqlString, p);
+            return result;
+        }
+
+        //Special Queries
+        public async Task<IEnumerable<CompanyContactsWithStoreLocations>> GetCompanyContactsWithStoreLocationsAsync()
+        {
+            string sqlString = _sqlQuery.sqlQueries["GetCompanyContactsWithStoreLocationsAsync"];
+            var result = await _sql.LoadData<CompanyContactsWithStoreLocations, dynamic>(sqlString, new { });
             return result;
         }
     }

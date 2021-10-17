@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HardwareStoreAPI.DTOs.SpecialDTOs.CompanyContactsWithStoreLocationsDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<h1>Sales Contacts</h1>
+
+<h3>Total Number of Contacts: @Model.ToList().Count.ToString("#,##0")</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreFullAddress)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model)
+        {
+        <tr>
+            <td>
+                @contact.FullName
+            </td>
+            <td>
+                @contact.ContactPhone
+            </td>
+            <td>
+                @contact.ContactEmail
+            </td>
+            <td>
+                @contact.StoreName
+            </td>
+            <td>
+                @contact.StoreFullAddress
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

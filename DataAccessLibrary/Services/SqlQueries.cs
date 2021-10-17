@@ -900,6 +900,39 @@ namespace DataAccessLibrary.Services
                 WHERE ""ZoneDistributionCenterID""=@ZoneDistributionCenterID;
                 "
             },
+            ///////////////////////
+            //Special Queries
+            ///////////////////////
+            
+
+            //CompanyContacts Queries
+            {"GetCompanyContactsWithStoreLocationsAsync",
+                @"
+                SELECT
+                ""CompanyContactsID"",
+                ""FirstName"",
+                ""LastName"",
+                ""ContactTitle"",
+                ""ContactPhone"",
+                ""tblCompanyContacts"".""ActiveStatus"" AS ""CompanyContactsActiveStatus"",
+                ""fkStoreLocationsID"",
+                ""ContactEmail"",
+                ""StoreName"",
+                ""StoreStreet"",
+                ""StoreCity"",
+                ""StoreState"",
+                ""StoreZipCode"",
+                ""StoreCountryCode"",
+                ""StoreEmail"",
+                ""StorePhone"",
+                ""StoreName"",
+                ""tblStoreLocations"".""ActiveStatus"" AS ""StoreActiveStatus""
+                FROM ""tblCompanyContacts""
+                LEFT JOIN ""tblStoreLocations""
+                ON ""fkStoreLocationsID""=""StorelocationsID""
+                WHERE ""tblCompanyContacts"".""ActiveStatus""=true;
+                "
+            },
         };
     }
 }

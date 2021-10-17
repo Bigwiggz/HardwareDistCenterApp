@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HardwareStoreAPI.DTOs;
+using DataAccessLibrary.Models.SpecialModels;
+using HardwareStoreAPI.DTOs.SpecialDTOs;
 
 namespace HardwareStoreAPI.Extensions.Data
 {
@@ -19,6 +21,9 @@ namespace HardwareStoreAPI.Extensions.Data
             //ICECATProduct Catalog
             CreateMap<ICECATProductCatalog, ICECATProductCatalogDTO>();
             CreateMap<ICECATProductCatalogDTO, ICECATProductCatalog>();
+
+            //CompanyContactsWithStoreLocations Query Display Only
+            CreateMap<CompanyContactsWithStoreLocations, CompanyContactsWithStoreLocationsDTO>();
         }
     }
 }
