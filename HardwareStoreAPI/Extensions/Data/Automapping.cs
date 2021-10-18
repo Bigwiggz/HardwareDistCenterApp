@@ -22,6 +22,10 @@ namespace HardwareStoreAPI.Extensions.Data
             CreateMap<ICECATProductCatalog, ICECATProductCatalogDTO>();
             CreateMap<ICECATProductCatalogDTO, ICECATProductCatalog>();
 
+            //Zone Distribution Center Mapping
+            CreateMap<ZoneDistributionCenters, ZoneDistributionCentersDTO>();
+            CreateMap<ZoneDistributionCentersDTO, ZoneDistributionCenters>();
+
             //CompanyContactsWithStoreLocations Query Display Only
             CreateMap<CompanyContactsWithStoreLocations, CompanyContactsWithStoreLocationsDTO>();
         }

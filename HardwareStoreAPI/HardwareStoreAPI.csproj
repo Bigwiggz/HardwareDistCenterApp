@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\HardwareStoreBusinessLogicLibrary\HardwareStoreBusinessLogicLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
