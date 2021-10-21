@@ -73,6 +73,16 @@ namespace HardwareStoreAPI
             });
 
 
+            //TODO: Check to see if this JsonSerializer Configuration works with Net Topology Suite
+            //Add GeoJSON Converter
+            public void ConfigureServices(IServiceCollection services) {
+                services.AddControllers()
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
+                });
+            }
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
