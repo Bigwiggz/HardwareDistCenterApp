@@ -1,9 +1,11 @@
+using NetTopologySuite.IO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using Newtonsoft.Json;
 
 
 namespace HardwareStoreBusinessLogicLibrary.Services
@@ -15,17 +17,22 @@ namespace HardwareStoreBusinessLogicLibrary.Services
 
         }
 
-        public NetTopologySuite.Geometries.Geometry CreateNTSGeometryFromGeometryGeoJSONObject<T>(T geometry)
+        public NetTopologySuite.Geometries.Geometry CreateNTSGeometryFromGeometryGeoJSONObject<T>(T geometryObject)
         {
-            var geometryTextGeoJSON=JsonSerializer.Serialize(geometry);
+            string geoJsonString = System.Text.Json.JsonSerializer.Serialize(geometryObject);
 
-            var serializer=GeoJsonSerializer.Create();
-            //TODO: May need to add Json Serializer Converter  go to https://docs.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonconverter-1?view=net-5.0
-            using(var stringReader=new StringReader(geometryTextGeoJSON))
-            using(var jsonReader=new JsonTextReader(stringReader))
+            var geoJsonOptions = new JsonSerializerOptions();
+            geoJsonOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
+            var serializer = GeoJsonSerializer.Create();
+            NetTopologySuite.Geometries.Geometry geoShape;
+            using (var stringReader = new StringReader(geoJsonString))
             {
-                geometry=serializer.Deserialize<T>(jsonReader);
+                using (var jsonReader = new JsonTextReader(stringReader))
+                {
+                    geoShape = serializer.Deserialize<NetTopologySuite.Geometries.Geometry>(jsonReader);
+                }
             }
+            return geoShape;
         }
     }
 }

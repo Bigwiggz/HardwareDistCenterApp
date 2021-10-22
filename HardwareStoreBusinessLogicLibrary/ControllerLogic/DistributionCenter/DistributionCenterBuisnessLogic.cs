@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLibrary.Models;
-using HardwareStoreAPI.DTOs;
 using HardwareStoreBusinessLogicLibrary.Services;
-
+using HardwareStoreBusinessLogicLibrary.DTOModels;
 
 namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
 {
@@ -15,45 +13,46 @@ namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
     {
         public DistributionCenterBuisnessLogic()
         {
-            var geoServices= new GeoServices();
+            
         }
 
         public ZoneDistributionCentersGeoJSONDTO CreateGeoJSONDTOfromModel(List<ZoneDistributionCenters> zoneDistributionCentersList)
         {
             var zoneDistributionGeoJSONDTO=new ZoneDistributionCentersGeoJSONDTO();
 
-            List<ZoneDistributionCenters> zoneDistributionCenters=new();
+            List<Feature> zoneDistributionCenters=new();
 
-            foreach(var distributionCenter in ZoneDistributionCenters)
+            foreach(var distributionCenter in zoneDistributionCentersList)
             {
                 var newFeature= new Feature();
 
                 newFeature.type="Feature";
 
-                var newProperties=new Properties
+                var newProperties=new DTOModels.Properties
                 {
-                    ZoneDistributionCenterID = zoneDistributionCentersList.ZoneDistributionCenterID,
-                    ZoneDistributionCenterStreet= zoneDistributionCentersList.ZoneDistributionCenterStreet,
-                    ZoneDistributionCenterCity = zoneDistributionCentersList.ZoneDistributionCenterCity,
-                    ZoneDistributionCenterState = zoneDistributionCentersList.ZoneDistributionCenterState,
-                    ZoneDistributionCenterZipCode = zoneDistributionCentersList.ZoneDistributionCenterZipCode,
-                    ZoneDistributionCenterCountryCode = zoneDistributionCentersList.ZoneDistributionCenterCountryCode,
-                    ZoneDistributionCenterCode = zoneDistributionCentersList.ZoneDistributionCenterCode,
-                    ActiveStatus = zoneDistributionCentersList.ActiveStatus,
-                    fkDistrictSalesZoneID = zoneDistributionCentersList.fkDistrictSalesZoneID
+                    ZoneDistributionCenterID = distributionCenter.ZoneDistributionCenterID,
+                    ZoneDistributionCenterStreet= distributionCenter.ZoneDistributionCenterStreet,
+                    ZoneDistributionCenterCity = distributionCenter.ZoneDistributionCenterCity,
+                    ZoneDistributionCenterState = distributionCenter.ZoneDistributionCenterState,
+                    ZoneDistributionCenterZipCode = distributionCenter.ZoneDistributionCenterZipCode,
+                    ZoneDistributionCenterCountryCode = distributionCenter.ZoneDistributionCenterCountryCode,
+                    ZoneDistributionCenterCode = distributionCenter.ZoneDistributionCenterCode,
+                    ActiveStatus = distributionCenter.ActiveStatus,
+                    fkDistrictSalesZoneID = distributionCenter.fkDistrictSalesZoneID
                 };
 
                 var newGeometry=new Geometry();
 
                 newGeometry.type="Point";
-                newGeometry.coordinates=new decimal[]{zoneDistributionCentersList.Longitude,zoneDistributionCentersList.Latitude};
+                //TODO:-Check to see if coordinates are correct
+                newGeometry.coordinates=new decimal[]{ (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].Y, (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].X };
 
-                newFeature.Properties=newProperties;
-                newFeature.Geometry=newGeometry;
-                ZoneDistributionCenters.Add(newFeature);
+                newFeature.properties =newProperties;
+                newFeature.geometry =newGeometry;
+                zoneDistributionCenters.Add(newFeature);
             }
 
-            zoneDistributionGeoJSONDTO.features=ZoneDistributionCenters.ToArray();
+            zoneDistributionGeoJSONDTO.features=zoneDistributionCenters.ToArray();
 
             return zoneDistributionGeoJSONDTO;
 
@@ -61,21 +60,22 @@ namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
 
         public ZoneDistributionCenters CreateSingleModelFromGeoJSON(ZoneDistributionCentersGeoJSONDTO zoneDistributionCentersGeoJSONDTO)
         {
+            var geoServices = new GeoServices();
             //TODO: Create NTS Geometry-Create a Geometry extension for NTS methods
-            var zoneGeometry=geoServices.CreateNTSGeometryFromGeometryGeoJSONObject<Geometry>(zoneDistributionCentersGeoJSONDTO.Feature[0].Geometry)
+            var zoneGeometry = geoServices.CreateNTSGeometryFromGeometryGeoJSONObject<Geometry>(zoneDistributionCentersGeoJSONDTO.features[0].geometry);
 
             var zoneDistributionCenter=new ZoneDistributionCenters
             {
                 ZoneDistributionCenterLocation=zoneGeometry,
-                ZoneDistributionCenterID = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterID,
-                ZoneDistributionCenterStreet= zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterStreet,
-                ZoneDistributionCenterCity = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterCity,
-                ZoneDistributionCenterState = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterState,
-                ZoneDistributionCenterZipCode = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterZipCode,
-                ZoneDistributionCenterCountryCode = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterCountryCode,
-                ZoneDistributionCenterCode = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ZoneDistributionCenterCode,
-                ActiveStatus = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.ActiveStatus,
-                fkDistrictSalesZoneID = zoneDistributionCentersGeoJSONDTO.Feature[0].Properties.fkDistrictSalesZoneID
+                ZoneDistributionCenterID = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterID,
+                ZoneDistributionCenterStreet= zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterStreet,
+                ZoneDistributionCenterCity = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterCity,
+                ZoneDistributionCenterState = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterState,
+                ZoneDistributionCenterZipCode = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterZipCode,
+                ZoneDistributionCenterCountryCode = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterCountryCode,
+                ZoneDistributionCenterCode = zoneDistributionCentersGeoJSONDTO.features[0].properties.ZoneDistributionCenterCode,
+                ActiveStatus = zoneDistributionCentersGeoJSONDTO.features[0].properties.ActiveStatus,
+                fkDistrictSalesZoneID = zoneDistributionCentersGeoJSONDTO.features[0].properties.fkDistrictSalesZoneID
 
             };
 

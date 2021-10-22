@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HardwareStoreAPI.DTOs;
 using DataAccessLibrary.Models.SpecialModels;
-using HardwareStoreAPI.DTOs.SpecialDTOs;
+using HardwareStoreBusinessLogicLibrary.DTOModels;
+using HardwareStoreBusinessLogicLibrary.DTOModels.SpecialDTOs;
 
 namespace HardwareStoreAPI.Extensions.Data
 {
@@ -21,10 +21,6 @@ namespace HardwareStoreAPI.Extensions.Data
             //ICECATProduct Catalog
             CreateMap<ICECATProductCatalog, ICECATProductCatalogDTO>();
             CreateMap<ICECATProductCatalogDTO, ICECATProductCatalog>();
-
-            //Zone Distribution Center Mapping
-            CreateMap<ZoneDistributionCenters, ZoneDistributionCentersDTO>();
-            CreateMap<ZoneDistributionCentersDTO, ZoneDistributionCenters>();
 
             //CompanyContactsWithStoreLocations Query Display Only
             CreateMap<CompanyContactsWithStoreLocations, CompanyContactsWithStoreLocationsDTO>();

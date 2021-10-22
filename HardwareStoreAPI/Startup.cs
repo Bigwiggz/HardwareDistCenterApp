@@ -61,7 +61,10 @@ namespace HardwareStoreAPI
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions( options => {
+                options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
+                });
+
             services.AddRazorPages();
             //Add Authorization to all controllers
             services.AddMvc(o =>
@@ -75,12 +78,7 @@ namespace HardwareStoreAPI
 
             //TODO: Check to see if this JsonSerializer Configuration works with Net Topology Suite
             //Add GeoJSON Converter
-            public void ConfigureServices(IServiceCollection services) {
-                services.AddControllers()
-                .AddJsonOptions(options => {
-                    options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
-                });
-            }
+           
 
 
         }

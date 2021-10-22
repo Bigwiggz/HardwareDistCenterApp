@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HardwareStoreAPI.DTOs
+namespace HardwareStoreBusinessLogicLibrary.DTOModels
 {
     public class ICECATProductCatalogDTO
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NetTopologySuite.Geometries;
 
-namespace HardwareStoreAPI.DTOs
+namespace HardwareStoreBusinessLogicLibrary.DTOModels
 {
     public class ZoneDistributionCentersGeoJSONDTO
     {

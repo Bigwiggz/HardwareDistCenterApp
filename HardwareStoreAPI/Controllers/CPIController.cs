@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
-using HardwareStoreAPI.DTOs;
+using HardwareStoreBusinessLogicLibrary.DTOModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
