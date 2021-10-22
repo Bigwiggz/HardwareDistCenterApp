@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
 
 namespace HardwareStoreAPI
 {
@@ -50,6 +51,9 @@ namespace HardwareStoreAPI
             services.AddTransient<ISalesDetailsData, SalesDetailsData>();
             services.AddTransient<IStoreLocationsData, StoreLocationsData>();
             services.AddTransient<IZoneDistributionCenterData, ZoneDistributionCenterData>();
+
+            //Add Business Logic Containers
+            services.AddTransient<IDistributionCenterBuisnessLogic,DistributionCenterBuisnessLogic>();
 
             //Add Automapper
             services.AddAutoMapper(typeof(Startup));
