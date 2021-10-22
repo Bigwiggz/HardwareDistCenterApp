@@ -30,6 +30,10 @@ namespace HardwareStoreBusinessLogicLibrary.DTOModels
         public string ZoneDistributionCenterCode { get; set; }
         public bool ActiveStatus { get; set; }
         public long fkDistrictSalesZoneID { get; set; }
+        public string ZoneDistributionCenterFullAddress
+        {
+            get { return $"{ZoneDistributionCenterStreet} {ZoneDistributionCenterCity}, {ZoneDistributionCenterState} {ZoneDistributionCenterZipCode}"; }
+        }
     }
 
     public class Geometry
