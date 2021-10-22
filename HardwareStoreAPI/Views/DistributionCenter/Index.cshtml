@@ -1,10 +1,18 @@
 ﻿@model IEnumerable<HardwareStoreBusinessLogicLibrary.DTOModels.ZoneDistributionCentersGeoJSONDTO>
 
-    @{
-        ViewData["Title"] = "Index";
-        Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
-    }
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
 
-    <h1>Distribution Center</h1>
+<h1>Distribution Center</h1>
 
+
+@section scripts{
+    <script>
+        let getDataCenterGeoJSON =@Json.Serialize(@Model);
+    </script>
+    <script src="~/lib/leaflet/leaflet.min.js"></script>
+
+}}
 
