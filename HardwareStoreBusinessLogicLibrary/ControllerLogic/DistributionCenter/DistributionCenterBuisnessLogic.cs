@@ -45,7 +45,7 @@ namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
 
                 newGeometry.type = "Point";
                 //TODO:-Check to see if coordinates are correct
-                newGeometry.coordinates = new decimal[] { (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].Y, (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].X };
+                newGeometry.coordinates = new decimal[] { (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].X, (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].Y};
 
                 newFeature.properties = newProperties;
                 newFeature.geometry = newGeometry;

@@ -37,7 +37,7 @@ namespace DataAccessLibrary.DataAccess
 
         public async Task<IEnumerable<ZoneDistributionCenters>> GetAllAsync()
         {
-            string sqlString = _sqlQuery.sqlQueries["ZoneDistributionCenterGetAllAsync"];
+            string sqlString = _sqlQuery.sqlQueries["ZoneDistributionCentersGetAllAsync"];
             var result = await _sql.LoadData<ZoneDistributionCenters, dynamic>(sqlString, new { });
             return result;
         }

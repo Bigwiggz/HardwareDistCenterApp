@@ -2,6 +2,7 @@
 using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Models;
 using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,20 +12,22 @@ using System.Threading.Tasks;
 
 namespace HardwareStoreAPI.Controllers
 {
-    public class DistributionCenterController : Controller
+    public class DistributionCentersController : Controller
     {
         private readonly IZoneDistributionCenterData _zoneDistributionCenterData;
         private readonly ILogger<ZoneDistributionCenters> _logger;
         private readonly IMapper _mapper;
         private readonly IDistributionCenterBuisnessLogic _distributionCentersBusinessLogic;
 
-        public DistributionCenterController(IZoneDistributionCenterData zoneDistributionCenterData, ILogger<ZoneDistributionCenters> logger, IMapper mapper, IDistributionCenterBuisnessLogic distributionCentersBusinessLogic)
+        public DistributionCentersController(IZoneDistributionCenterData zoneDistributionCenterData, ILogger<ZoneDistributionCenters> logger, IMapper mapper, IDistributionCenterBuisnessLogic distributionCentersBusinessLogic)
         {
             _zoneDistributionCenterData = zoneDistributionCenterData;
             _logger = logger;
             _mapper = mapper;
             _distributionCentersBusinessLogic = distributionCentersBusinessLogic;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> IndexAsync()
         {
             var distributionCenters = await _zoneDistributionCenterData.GetAllAsync();

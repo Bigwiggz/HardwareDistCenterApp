@@ -19,6 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
+using Microsoft.AspNetCore.Http;
 
 namespace HardwareStoreAPI
 {
@@ -79,10 +80,37 @@ namespace HardwareStoreAPI
                 o.Filters.Add(new AuthorizeFilter(policy));
             });
 
+            //Add session data
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "UserData.Session";
+                options.IdleTimeout = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddMemoryCache();
+
+            //Set inactivity timeout to 10 days for cookie
+            services.ConfigureApplicationCookie(o => {
+                o.ExpireTimeSpan = TimeSpan.FromDays(10);
+                o.SlidingExpiration = true;
+            });
+
+            //Add Cookie Policy Options
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // consent required
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
 
             //TODO: Check to see if this JsonSerializer Configuration works with Net Topology Suite
             //Add GeoJSON Converter
-           
+
 
 
         }
@@ -108,6 +136,8 @@ namespace HardwareStoreAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

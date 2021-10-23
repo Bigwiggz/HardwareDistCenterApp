@@ -77,7 +77,7 @@ let distributionCentersMappedLocations=L.geoJSON(filteredDistributionCentersList
 		}
 	},
 	onEachFeature:function(feature, layer){
-		layer.bindTooltip(feature.properties.name,{
+		layer.bindTooltip(feature.properties.zoneDistributionCenterCode,{
 			permanent:true,
 			direction:"center",
 			className:"distributionCenterLabel"

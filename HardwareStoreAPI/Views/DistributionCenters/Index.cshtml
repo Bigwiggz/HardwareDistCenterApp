@@ -1,0 +1,123 @@
+﻿@model HardwareStoreBusinessLogicLibrary.DTOModels.ZoneDistributionCentersGeoJSONDTO
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+@section styles{
+    <!--Page Base Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="~/css/Pages/ZoneDistributionCenters/ZoneDistributionCenters.css" />
+    <!--Add Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="" />
+    <!--Add Leaflet Geoman Drawing Library CSS-->
+    <link href="~/lib/geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css" rel="stylesheet" />
+}
+
+<!--Title-->
+<h1>Distribution Center</h1>
+
+<!--Map-->
+<h3 class="text-center">Distribution Centers Map</h3>
+<div id="map"></div>
+
+<!--Table Item Information-->
+<!--Information Table-->
+<div class="container-fluid table-parcel-section p-3" id="table-information-section">
+    <div class="m-6">
+        <h2 class="text-center"><strong>Distribution Centers Table</strong></h2>
+        <p class="text-center" id="SummaryTitle">This is a table displaying information about the item clicked</p>
+    </div>
+    <div>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Field</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody id="InformationTableBody">
+                <!--Dynamically Load valvues from Javascript Here-->
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Distribution Centers List-->
+<!--TODO: Finsih Distribtuion Centers List-->
+<div class="m-6">
+    <h2 class="text-center"><strong>Distribution Centers List</strong></h2>
+    <p class="text-center" id="SummaryTitle">This is a table displaying all the distribution center locations</p>
+</div>
+<div>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Dist. Center No.
+                </th>
+                <th>
+                    Dist. Center Code
+                </th>
+                <th>
+                    Dist. Center Address
+                </th>
+                <th>
+                    Dist. Center Country Code
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.features)
+            {
+                <tr>
+                    <td>
+                        @item.properties.ZoneDistributionCenterID
+                    </td>
+                    <td>
+                        @item.properties.ZoneDistributionCenterCode
+                    </td>
+                    <td>
+                        @item.properties.ZoneDistributionCenterFullAddress
+                    </td>
+                    <td>
+                        @item.properties.ZoneDistributionCenterCountryCode
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.properties.ZoneDistributionCenterID */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.properties.ZoneDistributionCenterID */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.properties.ZoneDistributionCenterID */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--TODO: Add Icons to Edit, Delete, Details-->
+<!--TODO: Add Add Feature for new District Zone-->
+<!--TODO: Add Add View District Zone page-->
+<!--TODO: Add Add Edit District Zone page-->
+<!--TODO: Add Dynamic Search for District Zones-->
+@section scripts{
+    <!--Load Information-->
+    <script>
+        let getDataCenterGeoJSON =@Json.Serialize(@Model);
+    </script>
+    <!--Leaflet Provider Tiles-->
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <!--Leaflet JS-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <!--Add Leaflet Geoman Library for Editing-->
+    <script src="~/lib/geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js"></script>
+    <!--TODO: Add Geoman Library JS Reference-->
+    <!--Load Page JS file-->
+    <script src="~/js/Pages/ZoneDistributionCenters/ZoneDistributionCentersIndex.js"></script>
+}
+

@@ -85,6 +85,7 @@ namespace HardwareStoreAPI.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    //TODO: Add session storage model and set
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
