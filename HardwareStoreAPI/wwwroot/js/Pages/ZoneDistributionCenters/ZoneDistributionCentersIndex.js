@@ -328,7 +328,7 @@ function PopulateTableofDistributionCenters(DistributionCenterMappedLocations) {
 				<a href="${window.location.origin}${window.location.pathname}/edit/${e.properties.zoneDistributionCenterID}">
 					<i class="fas fa-edit nav-icon"></i>
 				</a> |
-				<a href="${window.location.origin}${window.location.pathname}/information/${e.properties.zoneDistributionCenterID}">
+				<a href="${window.location.origin}${window.location.pathname}/details/${e.properties.zoneDistributionCenterID}">
 					<i class="fas fa-info-circle nav-icon"></i>
 				</a> |
 				<a href="${window.location.origin}${window.location.pathname}/create.html">

@@ -1,0 +1,8 @@
+﻿@model ErrorViewModel
+
+<div class="alert alert-danger mt-1 mb-1">
+    <h3> 404 Not Found Error:</h3>
+    <hr />
+    <h5>Sorry!,  But the Resource  with Id of @Model.RequestId cannot be found.</h5>
+</div>
+<a asp-action="index" asp-controller=@Model.ControllerRedirect class="btn btn-outline-sucess">Click here to return to Principal Screen</a>

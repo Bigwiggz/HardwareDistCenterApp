@@ -44,7 +44,7 @@ namespace DataAccessLibrary.DataAccess
 
         public async Task<ZoneDistributionCenters> GetByIdAsync(object Id)
         {
-            string sqlString = _sqlQuery.sqlQueries["ZoneDistributionCenterGetByIdAsync"];
+            string sqlString = _sqlQuery.sqlQueries["ZoneDistributionCentersGetByIdAsync"];
             var p = new
             {
                 Id = Id
