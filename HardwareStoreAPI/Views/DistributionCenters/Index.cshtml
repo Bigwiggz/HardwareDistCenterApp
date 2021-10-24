@@ -19,6 +19,31 @@
 <!--Title-->
 <h1>Distribution Center</h1>
 
+<!--Search Criteria Fields-->
+<div>
+    <div class="m-8">
+        <h2 class="text-center"><strong>Filter Criteria</strong></h2>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Distribution Center Code</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="zoneDistributionCenterCode">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Distribution Center No</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="zoneDistributionCenterID">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Distribution Center Address</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="zoneDistributionFullAddress">
+        </div>
+    </div>
+</div>
+
 <!--Map-->
 <h3 class="text-center">Distribution Centers Map</h3>
 <div id="map"></div>
@@ -68,10 +93,13 @@
                 <th>
                     Dist. Center Country Code
                 </th>
-                <th></th>
+                <th>
+                    Actions
+                </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="DistributionCenterTableBody">
+            @*
             @foreach (var item in Model.features)
             {
                 <tr>
@@ -94,6 +122,7 @@
                     </td>
                 </tr>
             }
+            *@
         </tbody>
     </table>
 </div>
@@ -102,7 +131,6 @@
 <!--TODO: Add Add Feature for new District Zone-->
 <!--TODO: Add Add View District Zone page-->
 <!--TODO: Add Add Edit District Zone page-->
-<!--TODO: Add Dynamic Search for District Zones-->
 @section scripts{
     <!--Load Information-->
     <script>

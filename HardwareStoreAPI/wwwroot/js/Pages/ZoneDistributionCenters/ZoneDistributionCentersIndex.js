@@ -163,6 +163,11 @@ function LoadItemInformation(properties){
 	document.getElementById("table-information-section").scrollIntoView();
 	
 }
+
+///////////////////////////////////////////
+//Initial load of Distribution Center Table
+///////////////////////////////////////////
+PopulateTableofDistributionCenters(getDataCenterGeoJSON);
  
 ///////////////////////////////////////////
 //Add Leaflet Drawing Controls 
@@ -251,4 +256,95 @@ function findLayers(map) {
     layers = layers.filter(layer => !layer._pmTempLayer);
 
     return layers;
+};
+
+///////////////////////////////////////////
+//Dynamic filtering
+///////////////////////////////////////////
+
+//Add event listeners
+
+//Zone Distribution Code Event Listener
+document.getElementById("zoneDistributionCenterCode").addEventListener("keyup", e => {
+	let zoneDistributionCodeInputValue = document.getElementById("zoneDistributionCenterCode").value;
+	let filteredResult = FilterZoneDistributionCenters("zoneDistributionCenterCode", zoneDistributionCodeInputValue, getDataCenterGeoJSON);
+	distributionCentersMappedLocations.clearLayers();
+	distributionCentersMappedLocations.addData(filteredResult);
+	let tableFilteredResult = {};
+	tableFilteredResult.features = filteredResult;
+	PopulateTableofDistributionCenters(tableFilteredResult);
+});
+
+
+//Zone Distribution Code Event Listener
+document.getElementById("zoneDistributionCenterID").addEventListener("keyup", e => {
+	let zoneDistributionNoInputValue = document.getElementById("zoneDistributionCenterID").value;
+	let filteredResult = FilterZoneDistributionCenters("zoneDistributionCenterID", zoneDistributionNoInputValue, getDataCenterGeoJSON);
+	distributionCentersMappedLocations.clearLayers();
+	distributionCentersMappedLocations.addData(filteredResult);
+	let tableFilteredResult = {};
+	tableFilteredResult.features = filteredResult;
+	PopulateTableofDistributionCenters(tableFilteredResult);
+});
+
+//Zone Distribution Code Event Listener
+document.getElementById("zoneDistributionFullAddress").addEventListener("keyup", e => {
+	let zoneDistributionFullAddressInputValue = document.getElementById("zoneDistributionFullAddress").value.toLocaleLowerCase();
+	let filteredResult = FilterZoneDistributionCenters("zoneDistributionCenterFullAddress", zoneDistributionFullAddressInputValue, getDataCenterGeoJSON);
+	distributionCentersMappedLocations.clearLayers();
+	distributionCentersMappedLocations.addData(filteredResult);
+	let tableFilteredResult = {};
+	tableFilteredResult.features = filteredResult;
+	PopulateTableofDistributionCenters(tableFilteredResult);
+});
+
+
+//function to filter list
+function FilterZoneDistributionCenters(key, value, zoneDistributionObject) {
+	let filteredResult = zoneDistributionObject.features.filter(x => x.properties[key].toString().toLocaleLowerCase().includes(value));
+	return filteredResult;
+};
+
+//Filter table list
+function PopulateTableofDistributionCenters(DistributionCenterMappedLocations) {
+
+	//Append html table information
+	const DistributionTable = document.getElementById("DistributionCenterTableBody");
+	DistributionTable.textContent = "";
+
+	let mappedLocationList = DistributionCenterMappedLocations.features;
+
+	let htmlTable = "";
+
+	mappedLocationList.forEach(e => {
+		htmlTable +=
+		`
+		<tr>
+			<td>${e.properties.zoneDistributionCenterID}</td>
+			<td>${e.properties.zoneDistributionCenterCode}</td>
+			<td>${e.properties.zoneDistributionCenterFullAddress}</td>
+			<td>${e.properties.zoneDistributionCenterCountryCode}</td>
+			<td>
+				<a href="${window.location.origin}${window.location.pathname}/edit/${e.properties.zoneDistributionCenterID}">
+					<i class="fas fa-edit nav-icon"></i>
+				</a> |
+				<a href="${window.location.origin}${window.location.pathname}/information/${e.properties.zoneDistributionCenterID}">
+					<i class="fas fa-info-circle nav-icon"></i>
+				</a> |
+				<a href="${window.location.origin}${window.location.pathname}/create.html">
+					<i class="fas fa-plus-square nav-icon"></i>
+				</a> |
+				<a href="${window.location.origin}${window.location.pathname}/delete/${e.properties.zoneDistributionCenterID}">
+					<i class="fas fa-trash-alt nav-icon"></i>
+				</a> 
+			</td>
+		</tr>
+		`
+	});
+
+	//Append html table information
+	DistributionTable.insertAdjacentHTML('afterbegin', htmlTable);
+
+	//clear input array after information is posted
+	mappedLocationList = [];
 };

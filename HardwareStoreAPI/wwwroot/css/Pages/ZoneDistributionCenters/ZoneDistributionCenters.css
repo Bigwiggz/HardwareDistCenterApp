@@ -16,9 +16,9 @@ Style sheet for Zone Distribution Center template
       background-color:  #73000a;
       color: #fff;
   }
-  
-  .distributionCenterLabel{
-      background-color:transparent;
-      border: 0px;
-      box-shadow:none;
-  }
+
+.distributionCenterLabel{
+    background-color: transparent;
+    border: 0px;
+    box-shadow: none;
+}

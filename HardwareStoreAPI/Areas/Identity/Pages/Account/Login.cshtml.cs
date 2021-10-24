@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using HardwareStoreAPI.Extensions.Data;
 
 namespace HardwareStoreAPI.Areas.Identity.Pages.Account
 {
@@ -86,6 +87,7 @@ namespace HardwareStoreAPI.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     //TODO: Add session storage model and set
+                    //HttpContext.Session.SetObjectAsJson("userCredentials", passedData);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
