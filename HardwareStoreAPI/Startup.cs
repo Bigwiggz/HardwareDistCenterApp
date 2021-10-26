@@ -20,6 +20,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
 using Microsoft.AspNetCore.Http;
+using System.Net.Mail;
+using System.Net;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using HardwareStoreAPI.Services.Email.Sender;
 
 namespace HardwareStoreAPI
 {
@@ -111,8 +115,26 @@ namespace HardwareStoreAPI
             //TODO: Check to see if this JsonSerializer Configuration works with Net Topology Suite
             //Add GeoJSON Converter
 
+            //Email Setup-Gmail
+            var gmailSender = Configuration.GetSection("GmailEmailConfiguration")["Sender"];
+            var gmailFrom= Configuration.GetSection("GmailEmailConfiguration")["From"];
+            var gmailHost= Configuration.GetSection("GmailEmailConfiguration")["Host"];
+            var gmailPort= Convert.ToInt32(Configuration.GetSection("GmailEmailConfiguration")["Port"]);
+            var gmailPassword= Configuration.GetSection("GmailEmailConfiguration")["Password"];
 
+            services
+                .AddFluentEmail(gmailSender, gmailFrom)
+                .AddRazorRenderer()
+                .AddSmtpSender(new SmtpClient(gmailHost)
+                {
+                    UseDefaultCredentials = false,
+                    Port = gmailPort,
+                    Credentials = new NetworkCredential(gmailSender, gmailPassword),
+                    EnableSsl = true,
+                });
 
+            //Email DI Mapping
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

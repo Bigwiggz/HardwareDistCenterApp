@@ -44,7 +44,7 @@ namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
                 var newGeometry = new Geometry();
 
                 newGeometry.type = "Point";
-                //TODO:-Check to see if coordinates are correct
+
                 newGeometry.coordinates = new decimal[] { (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].X, (decimal)distributionCenter.ZoneDistributionCenterLocation.Coordinates[0].Y};
 
                 newFeature.properties = newProperties;
@@ -61,7 +61,7 @@ namespace HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter
         public ZoneDistributionCenters CreateSingleModelFromGeoJSON(ZoneDistributionCentersGeoJSONDTO zoneDistributionCentersGeoJSONDTO)
         {
             var geoServices = new GeoServices();
-            //TODO: Create NTS Geometry-Create a Geometry extension for NTS methods
+
             var zoneGeometry = geoServices.CreateNTSGeometryFromGeometryGeoJSONObject<Geometry>(zoneDistributionCentersGeoJSONDTO.features[0].geometry);
 
             var zoneDistributionCenter = new ZoneDistributionCenters
