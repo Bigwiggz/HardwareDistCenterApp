@@ -133,6 +133,7 @@ namespace HardwareStoreAPI
                     EnableSsl = true,
                 });
 
+
             //Email DI Mapping
             services.AddScoped<IEmailSender, EmailSender>();
         }
