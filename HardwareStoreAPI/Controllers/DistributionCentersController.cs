@@ -6,8 +6,6 @@ using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,8 +45,8 @@ namespace HardwareStoreAPI.Controllers
                 var errorViewModel = new ErrorViewModel
                 {
                     RequestId = Id.ToString(),
-                    ControllerRedirect= this.ControllerContext.RouteData.Values["controller"].ToString()
-            };
+                    ControllerRedirect = this.ControllerContext.RouteData.Values["controller"].ToString()
+                };
                 Response.StatusCode = 404;
                 return View("ResourceNotFound", errorViewModel);
             }
@@ -57,7 +55,7 @@ namespace HardwareStoreAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAsync(long? Id) 
+        public async Task<IActionResult> EditAsync(long? Id)
         {
             var distributionCenter = await _zoneDistributionCenterData.GetByIdAsync(Id.Value);
 

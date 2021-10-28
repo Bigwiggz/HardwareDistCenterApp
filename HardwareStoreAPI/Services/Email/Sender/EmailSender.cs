@@ -1,10 +1,7 @@
 ﻿using FluentEmail.Core;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStoreAPI.Services.Email.Sender
@@ -19,7 +16,7 @@ namespace HardwareStoreAPI.Services.Email.Sender
         }
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            using (var scope=_serviceProvider.CreateScope())
+            using (var scope = _serviceProvider.CreateScope())
             {
                 var mailer = scope.ServiceProvider.GetRequiredService<IFluentEmail>();
                 var emailPackage = mailer

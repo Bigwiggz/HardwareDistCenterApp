@@ -2,28 +2,22 @@ using DataAccessLibrary.DataAccess;
 using DataAccessLibrary.Internal;
 using DataAccessLibrary.Services;
 using HardwareStoreAPI.Data;
+using HardwareStoreAPI.Services.Email.Sender;
+using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using HardwareStoreBusinessLogicLibrary.ControllerLogic.DistributionCenter;
-using Microsoft.AspNetCore.Http;
-using System.Net.Mail;
 using System.Net;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using HardwareStoreAPI.Services.Email.Sender;
+using System.Net.Mail;
 
 namespace HardwareStoreAPI
 {
@@ -58,7 +52,7 @@ namespace HardwareStoreAPI
             services.AddTransient<IZoneDistributionCenterData, ZoneDistributionCenterData>();
 
             //Add Business Logic Containers
-            services.AddTransient<IDistributionCenterBuisnessLogic,DistributionCenterBuisnessLogic>();
+            services.AddTransient<IDistributionCenterBuisnessLogic, DistributionCenterBuisnessLogic>();
 
             //Add Automapper
             services.AddAutoMapper(typeof(Startup));
@@ -70,9 +64,10 @@ namespace HardwareStoreAPI
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews().AddJsonOptions( options => {
+            services.AddControllersWithViews().AddJsonOptions(options =>
+            {
                 options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
-                });
+            });
 
             services.AddRazorPages();
             //Add Authorization to all controllers
@@ -98,7 +93,8 @@ namespace HardwareStoreAPI
             services.AddMemoryCache();
 
             //Set inactivity timeout to 10 days for cookie
-            services.ConfigureApplicationCookie(o => {
+            services.ConfigureApplicationCookie(o =>
+            {
                 o.ExpireTimeSpan = TimeSpan.FromDays(10);
                 o.SlidingExpiration = true;
             });
@@ -117,10 +113,10 @@ namespace HardwareStoreAPI
 
             //Email Setup-Gmail
             var gmailSender = Configuration.GetSection("GmailEmailConfiguration")["Sender"];
-            var gmailFrom= Configuration.GetSection("GmailEmailConfiguration")["From"];
-            var gmailHost= Configuration.GetSection("GmailEmailConfiguration")["Host"];
-            var gmailPort= Convert.ToInt32(Configuration.GetSection("GmailEmailConfiguration")["Port"]);
-            var gmailPassword= Configuration.GetSection("GmailEmailConfiguration")["Password"];
+            var gmailFrom = Configuration.GetSection("GmailEmailConfiguration")["From"];
+            var gmailHost = Configuration.GetSection("GmailEmailConfiguration")["Host"];
+            var gmailPort = Convert.ToInt32(Configuration.GetSection("GmailEmailConfiguration")["Port"]);
+            var gmailPassword = Configuration.GetSection("GmailEmailConfiguration")["Password"];
 
             services
                 .AddFluentEmail(gmailSender, gmailFrom)

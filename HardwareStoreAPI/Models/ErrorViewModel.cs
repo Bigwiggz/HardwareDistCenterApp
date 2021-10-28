@@ -1,5 +1,3 @@
-using System;
-
 namespace HardwareStoreAPI.Models
 {
     public class ErrorViewModel

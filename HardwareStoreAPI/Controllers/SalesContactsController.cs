@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using DataAccessLibrary.DataAccess;
-using DataAccessLibrary.Models;
 using HardwareStoreBusinessLogicLibrary.DTOModels.SpecialDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStoreAPI.Controllers
