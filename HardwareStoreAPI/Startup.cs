@@ -33,6 +33,7 @@ namespace HardwareStoreAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             //Add DataAccess Containers
             services.AddTransient<ISqlQueries, SqlQueries>();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
@@ -62,7 +63,7 @@ namespace HardwareStoreAPI
                 options.UseNpgsql(Configuration.GetConnectionString("HardwareIdentitydb")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
