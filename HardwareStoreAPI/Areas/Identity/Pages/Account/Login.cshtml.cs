@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using HardwareStoreAPI.Extensions.Data;
+using HardwareStoreAPI.Models.UserCredentials;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -83,7 +85,18 @@ namespace HardwareStoreAPI.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     //TODO: Add session storage model and set
-                    //HttpContext.Session.SetObjectAsJson("userCredentials", passedData);
+
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    var userCredData = new UserCredentials
+                    {
+                        UserId = user.Id,
+                        UserEmail=Input.Email,
+                        UserRole="",
+                        UserAssignmentId=""
+                    };
+
+                    HttpContext.Session.SetObjectAsJson("userCredentials", userCredData);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
