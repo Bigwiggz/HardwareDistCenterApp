@@ -1,7 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HardwareStoreAPI.ViewModels.UserRolesViewModel
+
 @{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
 <h1>Personnel</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                User Role
+            </th>
+            <th>
+                Password Reset
+            </th>
+            <th>User Actions</th>
+        </tr>
+    </thead>you
+    <tbody>
+        @foreach (var item in Model.UsersRolesList)
+        {
+            <tr>
+                <td>
+                    @item.User.UserName
+                </td>
+                <td>
+                    <select name="userRoleList" id="userRole">
+                        @foreach (var role in Model.AllRolesList)
+                        {
+                            <option value="@role">@role</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <a href="#">Reset Password</a>
+                </td>
+                <td>
+                    <a href="#">
+                        <i class="fas fa-edit nav-icon"></i>
+                    </a> |
+                    <a href="#">
+                        <i class="fas fa-info-circle nav-icon"></i>
+                    </a> |
+                    <a href="#">
+                        <i class="fas fa-trash-alt nav-icon"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

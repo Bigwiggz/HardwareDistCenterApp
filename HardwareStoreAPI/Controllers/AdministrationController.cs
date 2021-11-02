@@ -54,18 +54,26 @@ namespace HardwareStoreAPI.Controllers
                     Name=model.RoleName
                 };
 
-                //Saves the role in the underlying AspNetRoles table
-                IdentityResult result = await _roleManager.CreateAsync(identityRole);
+                var roleExist = await _roleManager.RoleExistsAsync(identityRole.Name);
 
-                if (result.Succeeded)
+                if (!roleExist)
                 {
-                    return RedirectToAction("index", "home");
+                    IdentityResult result = await _roleManager.CreateAsync(identityRole);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("index", "home");
+                    }
+
+                    //Saves the role in the underlying AspNetRoles table
+
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
             }
 
             return View(model);
@@ -89,21 +97,25 @@ namespace HardwareStoreAPI.Controllers
                 Id=role.Id,
                 RoleName=role.Name
             };
-
+            
             //Retrieve all users in said role
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name))
+                var isInRole = false;
+                isInRole = await _userManager.IsInRoleAsync(user, role.Name);
+                if (isInRole)
                 {
                     model.Users.Add(user.UserName);
                 }
+                
             }
-
+            
             return View(model);
         }
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role= await _roleManager.FindByIdAsync(model.Id);
@@ -130,6 +142,27 @@ namespace HardwareStoreAPI.Controllers
             }
 
             return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role is null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id: {id} cannot be found.";
+            }
+
+            var result = await _roleManager.DeleteAsync(role);
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(role.Name);
         }
     }
 }
