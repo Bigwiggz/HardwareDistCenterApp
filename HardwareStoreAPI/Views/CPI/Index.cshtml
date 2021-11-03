@@ -21,18 +21,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CPIIndexID)
+                CPI Index ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductCPIDateEntry)
+                CPI Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CPIIndexValue)
+                CPI Index Value
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ActiveStatus)
+                Status
             </th>
-            <th></th>
+            <th>
+                CPI Edits
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -52,9 +54,18 @@
                     @Html.DisplayFor(modelItem => item.ActiveStatus)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-controller="CPI" asp-action="Edit" asp-route-id="@item.CPIIndexID">
+                        <i class="fas fa-edit nav-icon"></i>
+                    </a> |
+                    <a asp-controller="CPI" asp-action="Details" asp-route-id="@item.CPIIndexID">
+                        <i class="fas fa-info-circle nav-icon"></i>
+                    </a> |
+                    <a asp-controller="CPI" asp-action="Create" asp-route-id="@item.CPIIndexID">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                    </a> |
+                    <a asp-controller="CPI" asp-action="Delete" asp-route-id="@item.CPIIndexID">
+                        <i class="fas fa-trash-alt nav-icon"></i>
+                    </a>
                 </td>
             </tr>
         }

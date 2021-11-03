@@ -61,8 +61,17 @@ namespace HardwareStoreAPI.Controllers
         }
 
         // GET: CPIController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+            long idLong;
+            var isconvertedtoLong=long.TryParse(id, out idLong);
+            if (isconvertedtoLong==false)
+            {
+                ViewBag.ErrorMessage = $"{id}";
+            }
+            var cpiIndex = _cpiIndexData.GetByIdAsync(idLong);
+            var cpiIndexDTO = new CPIIndexDTO();
+
             return View();
         }
 
