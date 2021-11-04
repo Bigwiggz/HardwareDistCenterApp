@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAccessLibrary.DataAccess;
+using DataAccessLibrary.Models;
 using HardwareStoreBusinessLogicLibrary.DTOModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -48,10 +49,13 @@ namespace HardwareStoreAPI.Controllers
         // POST: CPIController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CPIIndexDTO cPIIndexDTO)
         {
+            cPIIndexDTO.ActiveStatus = true;
             try
             {
+                var cpiData = _mapper.Map<CPIIndex>(cPIIndexDTO);
+                _cpiIndexData.InsertAsync(cpiData);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,6 +64,7 @@ namespace HardwareStoreAPI.Controllers
             }
         }
 
+        [AllowAnonymous]
         // GET: CPIController/Edit/5
         public ActionResult Edit(string id)
         {

@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HardwareStoreBusinessLogicLibrary.DTOModels.CPIIndexDTO
+
 @{
+    ViewBag.Title = "Edit CPI Value";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
+
+<h1>Edit CPI Value</h1>
+
+<form asp-action="CreateRole" method="post" class="mt-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <div class="form-group row">
+            <label asp-for="CPIIndexValue" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="CPIIndexValue" class="form-control" placeholder="Enter Value" />
+                <span asp-validation-for="CPIIndexValue" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ProductCPIDateEntry" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input type="date" asp-for="ProductCPIDateEntry" class="form-control" placeholder="Enter Date" />
+                <span asp-validation-for="ProductCPIDateEntry" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" style="width:auto">Save CHanges</button>
+        </div>
+    </div>
+</form>
