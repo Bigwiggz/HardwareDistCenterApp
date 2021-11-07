@@ -232,7 +232,8 @@ namespace DataAccessLibrary.Services
             {"CPIIndexGetAllAsync",
                 @"
                 SELECT*
-                FROM public.""tblCPIIndex"";
+                FROM public.""tblCPIIndex""
+                ORDER BY ""ProductCPIDateEntry"" ASC;
                 "
             },
             {"CPIIndexGetByIdAsync",

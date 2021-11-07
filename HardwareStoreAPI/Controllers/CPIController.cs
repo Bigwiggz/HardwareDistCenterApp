@@ -34,12 +34,25 @@ namespace HardwareStoreAPI.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         // GET: CPIController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(string id)
         {
-            return View();
+            long idLong;
+            var isconvertedtoLong = long.TryParse(id, out idLong);
+            if (isconvertedtoLong == false)
+            {
+                ViewBag.ErrorMessage = $"{id}";
+            }
+            var cpiIndex = await _cpiIndexData.GetByIdAsync(idLong);
+            var viewModel = _mapper.Map<CPIIndexDTO>(cpiIndex);
+
+            return View(viewModel); ;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         // GET: CPIController/Create
         public ActionResult Create()
         {
@@ -64,9 +77,10 @@ namespace HardwareStoreAPI.Controllers
             }
         }
 
+        [HttpGet]
         [AllowAnonymous]
         // GET: CPIController/Edit/5
-        public ActionResult Edit(string id)
+        public async Task<IActionResult> EditAsync(string id)
         {
             long idLong;
             var isconvertedtoLong=long.TryParse(id, out idLong);
@@ -74,30 +88,36 @@ namespace HardwareStoreAPI.Controllers
             {
                 ViewBag.ErrorMessage = $"{id}";
             }
-            var cpiIndex = _cpiIndexData.GetByIdAsync(idLong);
-            var cpiIndexDTO = new CPIIndexDTO();
+            var cpiIndex =await _cpiIndexData.GetByIdAsync(idLong);
+            var viewModel = _mapper.Map<CPIIndexDTO>(cpiIndex);
 
-            return View();
+            return View(viewModel);
         }
 
         // POST: CPIController/Edit/5
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> EditAsync(CPIIndexDTO cPIIndexDTO)
         {
-            try
+            if (ModelState.IsValid)
             {
+                cPIIndexDTO.ActiveStatus = true;
+                var cPIData = _mapper.Map<CPIIndex>(cPIIndexDTO);
+                var rowsInserted = await _cpiIndexData.UpdateByIdAsync(cPIData);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else 
             {
                 return View();
             }
         }
 
         // GET: CPIController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
+
             return View();
         }
 

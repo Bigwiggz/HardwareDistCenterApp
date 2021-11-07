@@ -12,7 +12,7 @@ namespace DataAccessLibrary.Internal
         Task<T> LoadSingleObjectInTransaction<T, U>(string storedProcedure, U parameters);
         Task<T> LoadSingleRecord<T, U>(string storedProcedure, U parameters);
         void RollBackTransaction();
-        Task<T> SaveData<T,U>(string storedProcedure, U parameters);
+        Task<int> SaveData<T,U>(string storedProcedure, U parameters);
         void SaveDataInTransaction<T>(string storedProcedure, T parameters);
         void StartTransaction(string connectionStringName);
     }

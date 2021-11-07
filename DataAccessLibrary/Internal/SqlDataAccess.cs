@@ -46,13 +46,13 @@ namespace DataAccessLibrary.Internal
             }
         }
 
-        public async Task<T> SaveData<T,U>(string storedProcedure, U parameters)
+        public async Task<int> SaveData<T,U>(string storedProcedure, U parameters)
         {
             string connectionString = _config.GetConnectionString("HardwareStoredb");
 
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
-                var data= await connection.QueryFirstAsync<T>(storedProcedure, parameters);
+                var data= await connection.ExecuteAsync(storedProcedure, parameters);
                 return data;
             }
         }

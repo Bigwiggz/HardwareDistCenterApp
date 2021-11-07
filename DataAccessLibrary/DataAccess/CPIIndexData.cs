@@ -44,10 +44,10 @@ namespace DataAccessLibrary.DataAccess
 
         public async Task<CPIIndex> GetByIdAsync(object Id)
         {
-            string sqlString = _sqlQuery.sqlQueries["CPIIndexGetByIdAsyn"];
+            string sqlString = _sqlQuery.sqlQueries["CPIIndexGetByIdAsync"];
             var p = new
             {
-                Id = Id
+                CPIIndexID = Id
             };
             var result = await _sql.LoadSingleRecord<CPIIndex, dynamic>(sqlString, p);
             return result;
