@@ -61,17 +61,18 @@ namespace HardwareStoreAPI.Controllers
 
         // POST: CPIController/Create
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CPIIndexDTO cPIIndexDTO)
         {
-            cPIIndexDTO.ActiveStatus = true;
-            try
+            if (ModelState.IsValid)
             {
+                cPIIndexDTO.ActiveStatus = true;
                 var cpiData = _mapper.Map<CPIIndex>(cPIIndexDTO);
                 _cpiIndexData.InsertAsync(cpiData);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
                 return View();
             }

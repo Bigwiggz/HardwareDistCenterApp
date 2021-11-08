@@ -202,7 +202,7 @@ namespace DataAccessLibrary.Services
                 INSERT INTO public.""tblCPIIndex""
                 (
                     ""ProductCPIDateEntry"",
-                    ""CPIIndexValue""
+                    ""CPIIndexValue"",
                     ""ActiveStatus""
                 )
                 VALUES
